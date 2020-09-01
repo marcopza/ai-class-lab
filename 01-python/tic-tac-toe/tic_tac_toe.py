@@ -1,4 +1,5 @@
 import re
+import random
 
 _PLAYER = "player"
 _MACHINE = "machine"
@@ -14,7 +15,60 @@ class TicTacToeGame():
     self.winner = None
 
   def is_over(self): # TODO: Finish this function by adding checks for a winning game (rows, columns, diagonals)
-    return self.board.count(None) == 0
+    if self.board[0] == _PLAYER_SYMBOL:
+      if self.board[1] == _PLAYER_SYMBOL and self.board[3] == _PLAYER_SYMBOL:
+        return True
+      elif self.board[3] == _PLAYER_SYMBOL and self.board[6] == _PLAYER_SYMBOL:
+        return True
+      elif self.board[4] == _PLAYER_SYMBOL and self.board[8] == _PLAYER_SYMBOL:
+        return True
+
+    elif self.board[0] == _MACHINE_SYMBOL:
+      if self.board[1] == _MACHINE_SYMBOL and self.board[3] == _MACHINE_SYMBOL:
+        return True
+      elif self.board[3] == _MACHINE_SYMBOL and self.board[6] == _MACHINE_SYMBOL:
+        return True
+      elif self.board[4] == _MACHINE_SYMBOL and self.board[8] == _MACHINE_SYMBOL:
+        return True
+
+    elif self.board[1] == _PLAYER_SYMBOL:
+      if self.board[4] == _PLAYER_SYMBOL and self.board[7] == _PLAYER_SYMBOL:
+        return True
+
+    elif self.board[1] == _MACHINE_SYMBOL:
+      if self.board[4] == _MACHINE_SYMBOL and self.board[7] == _MACHINE_SYMBOL:
+        return True
+
+    elif self.board[2] == _PLAYER_SYMBOL:
+      if self.board[5] == _PLAYER_SYMBOL and self.board[8] == _PLAYER_SYMBOL:
+        return True
+      elif self.board[4] == _PLAYER_SYMBOL and self.board[6] == _PLAYER_SYMBOL:
+        return True
+
+    elif self.board[2] == _MACHINE_SYMBOL:
+      if self.board[5] == _MACHINE_SYMBOL and self.board[8] == _MACHINE_SYMBOL:
+        return True
+      elif self.board[4] == _MACHINE_SYMBOL and self.board[6] == _MACHINE_SYMBOL:
+        return True
+    
+    elif self.board[3] == _PLAYER_SYMBOL:
+      if self.board[4] == _PLAYER_SYMBOL and self.board[5] == _PLAYER_SYMBOL:
+        return True
+
+    elif self.board[3] == _MACHINE_SYMBOL:
+      if self.board[4] == _MACHINE_SYMBOL and self.board[5] == _MACHINE_SYMBOL:
+        return True
+    
+    elif self.board[6] == _PLAYER_SYMBOL:
+      if self.board[7] == _PLAYER_SYMBOL and self.board[8] == _PLAYER_SYMBOL:
+        return True
+
+    elif self.board[6] == _MACHINE_SYMBOL:
+      if self.board[7] == _MACHINE_SYMBOL and self.board[8] == _MACHINE_SYMBOL:
+        return True
+
+    else:
+      return self.board.count(None) == 0
 
   def play(self):
     if self.turn == _PLAYER:
@@ -52,18 +106,23 @@ class TicTacToeGame():
   def machine_turn(self):
     # TODO: Implement this function to make the machine choose a random cell (use random module)
     # The result of this function should be that self.board now has one more random cell occupied
-
-    for i, cell in enumerate(self.board):
-      if cell is None:
-        self.board[i] = _MACHINE_SYMBOL
-        break
+    finished = False
+    while not finished:
+      a = random.randint(0,8)
+      if self.board[a] != _PLAYER_SYMBOL and self.board[a] != _MACHINE_SYMBOL:
+        self.board[a] = _MACHINE_SYMBOL
+        finished = True
 
   def format_board(self):
     # TODO: Implement this function, it must be able to print the board in the following format:
     #  x|o| 
     #   | | 
     #   | | 
-    return self.board
+    firstRow = self.board[0] + "|" + self.board[1] + "|" + self.board[2] + "\n"
+    secondRow = self.board[3] + "|" + self.board[4] + "|" + self.board[5] + "\n"
+    thirdRow = self.board[6] + "|" + self.board[7] + "|" + self.board[8] + "\n"
+    
+    return firstRow + secondRow + thirdRow
 
   def print(self):
     print("Player turn:" if self.turn == _MACHINE else "Machine turn:")
@@ -72,5 +131,8 @@ class TicTacToeGame():
 
   def print_result(self):
     # TODO: Implement this function in order to print the result based on the self.winner
-
+    if self.winner == _PLAYER:
+      print("Congratulations player!")
+    else:
+      print("Congratulations machine!")
     pass
