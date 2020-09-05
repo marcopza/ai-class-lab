@@ -16,55 +16,71 @@ class TicTacToeGame():
 
   def is_over(self): # TODO: Finish this function by adding checks for a winning game (rows, columns, diagonals)
     if self.board[0] == _PLAYER_SYMBOL:
-      if self.board[1] == _PLAYER_SYMBOL and self.board[3] == _PLAYER_SYMBOL:
+      if self.board[1] == _PLAYER_SYMBOL and self.board[2] == _PLAYER_SYMBOL:
+        self.winner = _PLAYER
         return True
       elif self.board[3] == _PLAYER_SYMBOL and self.board[6] == _PLAYER_SYMBOL:
+        self.winner = _PLAYER
         return True
       elif self.board[4] == _PLAYER_SYMBOL and self.board[8] == _PLAYER_SYMBOL:
+        self.winner = _PLAYER
         return True
 
     elif self.board[0] == _MACHINE_SYMBOL:
-      if self.board[1] == _MACHINE_SYMBOL and self.board[3] == _MACHINE_SYMBOL:
+      if self.board[1] == _MACHINE_SYMBOL and self.board[2] == _MACHINE_SYMBOL:
+        self.winner = _MACHINE
         return True
       elif self.board[3] == _MACHINE_SYMBOL and self.board[6] == _MACHINE_SYMBOL:
+        self.winner = _MACHINE
         return True
       elif self.board[4] == _MACHINE_SYMBOL and self.board[8] == _MACHINE_SYMBOL:
+        self.winner = _MACHINE
         return True
 
     elif self.board[1] == _PLAYER_SYMBOL:
       if self.board[4] == _PLAYER_SYMBOL and self.board[7] == _PLAYER_SYMBOL:
+        self.winner = _PLAYER
         return True
 
     elif self.board[1] == _MACHINE_SYMBOL:
       if self.board[4] == _MACHINE_SYMBOL and self.board[7] == _MACHINE_SYMBOL:
+        self.winner = _MACHINE
         return True
 
     elif self.board[2] == _PLAYER_SYMBOL:
       if self.board[5] == _PLAYER_SYMBOL and self.board[8] == _PLAYER_SYMBOL:
+        self.winner = _PLAYER
         return True
       elif self.board[4] == _PLAYER_SYMBOL and self.board[6] == _PLAYER_SYMBOL:
+        self.winner = _PLAYER
         return True
 
     elif self.board[2] == _MACHINE_SYMBOL:
       if self.board[5] == _MACHINE_SYMBOL and self.board[8] == _MACHINE_SYMBOL:
+        self.winner = _MACHINE
         return True
       elif self.board[4] == _MACHINE_SYMBOL and self.board[6] == _MACHINE_SYMBOL:
+        self.winner = _MACHINE
         return True
     
     elif self.board[3] == _PLAYER_SYMBOL:
       if self.board[4] == _PLAYER_SYMBOL and self.board[5] == _PLAYER_SYMBOL:
+        self.winner = _PLAYER
         return True
 
     elif self.board[3] == _MACHINE_SYMBOL:
       if self.board[4] == _MACHINE_SYMBOL and self.board[5] == _MACHINE_SYMBOL:
+        self.winner = _MACHINE
         return True
     
     elif self.board[6] == _PLAYER_SYMBOL:
       if self.board[7] == _PLAYER_SYMBOL and self.board[8] == _PLAYER_SYMBOL:
+        self.winner = _PLAYER
         return True
 
     elif self.board[6] == _MACHINE_SYMBOL:
       if self.board[7] == _MACHINE_SYMBOL and self.board[8] == _MACHINE_SYMBOL:
+        self.winner = _MACHINE
         return True
 
     else:
@@ -118,11 +134,36 @@ class TicTacToeGame():
     #  x|o| 
     #   | | 
     #   | | 
-    firstRow = self.board[0] + "|" + self.board[1] + "|" + self.board[2] + "\n"
-    secondRow = self.board[3] + "|" + self.board[4] + "|" + self.board[5] + "\n"
-    thirdRow = self.board[6] + "|" + self.board[7] + "|" + self.board[8] + "\n"
+
+    x = range(8)
+    rows = ""
+    for i in x:
+      if self.board[i] != None and i < 2:
+        rows += self.board[i] + "|"
+      elif self.board[i] is None and i < 2:
+        rows += " " + "|"
+      elif self.board[i] != None and i == 2:
+        rows += self.board[i] + "\n"
+      elif self.board[i] is None and i == 2:
+        rows += " " + "\n"
+      elif self.board[i] != None and i > 2  and i < 5:
+        rows += self.board[i] + "|"
+      elif self.board[i] is None and i > 2  and i < 5:
+        rows += " " + "|"
+      elif self.board[i] != None and i == 5:
+        rows += self.board[i] + "\n"
+      elif self.board[i] is None and i == 5:
+        rows += " " + "\n"
+      elif self.board[i] != None and i > 5 and i < 8:
+        rows += self.board[i] + "|"
+      elif self.board[i] is None and i > 5 and i < 8:
+        rows += " " + "|"
+      elif self.board[i] != None and i == 8:
+        rows += self.board[i] + "\n"
+      else:
+        rows += " " + "\n"
     
-    return firstRow + secondRow + thirdRow
+    return rows
 
   def print(self):
     print("Player turn:" if self.turn == _MACHINE else "Machine turn:")
